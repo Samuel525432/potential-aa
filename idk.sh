@@ -1,9 +1,17 @@
 #!/bin/bash
-[ -d /root/.config/librewolf ] && mv /root/.config/librewolf /root/.config/librewolf.corrupt.bak
-mkdir -p /tmp/lw-test
-cat << 'EOF' > /tmp/lw-test/user.js
+rm -rf /root/.config/librewolf /root/.librewolf
+mkdir -p /root/.config/librewolf/default
+cat << 'EOF' > /root/.config/librewolf/profiles.ini
+[General]
+StartWithLastProfile=1
+
+[Profile0]
+Name=default
+IsRelative=1
+Path=default
+Default=1
+EOF
+cat << 'EOF' > /root/.config/librewolf/default/user.js
 user_pref("gfx.webrender.software", true);
 user_pref("layers.acceleration.disabled", true);
 EOF
-GTK_USE_PORTAL=0 librewolf --no-remote --profile /tmp/lw-test &
-emote --profile /tmp/lw-test
