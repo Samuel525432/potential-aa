@@ -1,19 +1,15 @@
 #!/bin/bash
-rm -rf /root/.config/librewolf /root/.librewolf
-mkdir -p /root/.config/librewolf/default
-cat << 'EOF' > /root/.config/librewolf/profiles.ini
-[General]
-StartWithLastProfile=1
+cat << 'EOF' > /root/.xinitrc
+export GTK_USE_PORTAL=0
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/0}"
 
-[Profile0]
-Name=default
-IsRelative=1
-Path=default
-Default=1
-EOF
-cat << 'EOF' > /root/.config/librewolf/default/user.js
-user_pref("gfx.webrender.software", true);
-user_pref("layers.acceleration.disabled", true);
-EOF
+picom -b --config /root/.config/picom/picom.conf &
 
-grep -q "GTK_USE_PORTAL" /root/.xinitrc || sed -i.bak '1i export GTK_USE_PORTAL=0' /root/.xinitrc
+exec dbus-run-session sh -c '
+  pipewire &
+  sleep 0.5
+  pipewire-pulse &
+  wireplumber &
+  exec dwm
+'
+EOF
