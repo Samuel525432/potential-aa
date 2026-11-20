@@ -8,4 +8,4 @@ user_pref("security.sandbox.content.level", 0);
 EOF
 done
 
-MOZ_DISABLE_CONTENT_SANDBOX=1 MOZ_DISABLE_GMP_SANDBOX=1 LIBGL_ALWAYS_SOFTWARE=1 librewolf --safe-mode
+apk info mesa-dri; GDK_SYNCHRONIZE=1 MOZ_X11_EGL=0 librewolf --no-remote
