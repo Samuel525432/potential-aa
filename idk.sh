@@ -8,4 +8,4 @@ user_pref("security.sandbox.content.level", 0);
 EOF
 done
 
-apk info mesa-dri; GDK_SYNCHRONIZE=1 MOZ_X11_EGL=0 librewolf --no-remote
+GTK_USE_PORTAL=0 MOZ_USE_XINPUT2=0 librewolf --no-remote --profile /tmp/lw-test
