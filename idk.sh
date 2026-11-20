@@ -15,3 +15,5 @@ cat << 'EOF' > /root/.config/librewolf/default/user.js
 user_pref("gfx.webrender.software", true);
 user_pref("layers.acceleration.disabled", true);
 EOF
+
+grep -q "GTK_USE_PORTAL" /root/.xinitrc || sed -i.bak '1i export GTK_USE_PORTAL=0' /root/.xinitrc
