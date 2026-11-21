@@ -1,15 +1,8 @@
 #!/bin/bash
-cat << 'EOF' > /root/.xinitrc
-export GTK_USE_PORTAL=0
-export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/0}"
-
-picom -b --config /root/.config/picom/picom.conf &
-
-exec dbus-run-session sh -c '
-  pipewire &
-  sleep 0.5
-  pipewire-pulse &
-  wireplumber &
-  exec dwm
-'
-EOF
+doas apk add git clang make autoconf automake pkgconf imlib2-devel libx11-devel libxext-devel libxfixes-devel libxcomposite-devel libxinerama-devel
+git clone https://github.com/resurrecting-open-source-projects/scrot
+cd scrot
+./autogen.sh
+./configure --prefix=/usr/local
+make
+doas make install
